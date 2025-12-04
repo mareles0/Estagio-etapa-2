@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/tools/create-post/create-post.component';
+import { FirebaseTSFirestore} from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
+
 
 @Component({
   selector: 'app-post-feed',
@@ -16,6 +18,18 @@ export class PostFeedComponent implements OnInit {
 
   onCreatePostClick(){
     this.dialog.open(CreatePostComponent);
+  }
+
+  ggetPosts(){
+    this.firestore.getCollection(
+      {
+        path: ["Posts"],
+        where: [
+          new OrderBy("timestamp", "desc"),
+          new Limit(10)
+        ],
+      }
+    )
   }
 
 }
