@@ -1,0 +1,19 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Create a New Post</mat-card-title>
+    </mat-card-header>
+    <div id="textarea">
+        <textarea placeholder="type message..."></textarea>
+    </div>
+    <div *ngIf="selectedPhotoFile" id ="post-preview">
+        <img id="post-preview-imagem"/>
+    </div>
+    <mat-card-actions align="end">
+        <input #photoSelector (change)="onPhotoSelected(photoSelector)"
+               id="photo-upload" type="file" accept="image/*" style="display: none;"/>
+        <button mat-flat-button color="warn" (click)="photoSelector.click()">
+            <mat-icon>image</mat-icon>
+        </button>
+        <button mat-flat-button color="warn">Post</button>
+    </mat-card-actions>
+</mat-card>
