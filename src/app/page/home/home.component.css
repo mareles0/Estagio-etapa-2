@@ -1,5 +1,5 @@
 #page-home{
-    height: 100vh;
+    height: 100%;
     width: 100%;
     
 }
@@ -17,20 +17,24 @@
 
 #landing-left{
     display: false;
-    color: white;
+    color: rgb(253, 253, 253);
     justify-content: center;
     align-items: center;
 }
 
 #landing-left-content h1{
     font-size: 5em;
+    margin: 80px;   
 }
 
 #landing-left-content p{
     font-size: 3em;
+    margin: 80px;
 }
 
 #landing-left-content button{
     font-size: 2em;
     padding: .5em;
+    margin: 80px;
+    
 }
