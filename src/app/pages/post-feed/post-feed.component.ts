@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreatePostComponent } from 'src/app/tools/create-post/create-post.component';
 import { FirebaseTSFirestore, OrderBy, Limit } from 'firebasets/firebasetsFirestore/firebaseTSFirestore';
 import { ReplyComponent } from 'src/app/tools/reply/reply.component';
+import { FirebaseTSAuth } from 'firebasets/firebasetsAuth/firebaseTSAuth';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,11 +14,27 @@ import { ReplyComponent } from 'src/app/tools/reply/reply.component';
 })
 export class PostFeedComponent implements OnInit {
   private firestore = new FirebaseTSFirestore();
+  private auth = new FirebaseTSAuth();
   posts: PostData[] = [];
   postData: any;
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
+    // Verificar se está logado
+    if(!this.auth.isSignedIn()) {
+      this.router.navigate(['']);
+      return;
+    }
+    
+    // Ouvir mudanças no estado de autenticação
+    this.auth.listenToSignInStateChanges(
+      user => {
+        if(!user) {
+          this.router.navigate(['']);
+        }
+      }
+    );
+    
     this.getPosts();
   }
 
